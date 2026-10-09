@@ -1,3 +1,6 @@
+# Here are the Intruction from the Starter Project
+This will be usefull for you navigating all the files we have
+
 # Full Stack Example Project
 
 A minimal React + Flask starter project, default template unless using custom stack
