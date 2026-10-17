@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import { getHello } from './api'
 
 type Status = 'loading' | 'ok' | 'error'
+type QuestionTopic = 'topic1' | 'topic2' | 'topic3' //These are the question types
 
 function App() {
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<Status>('loading')
-  const [answer, setAnswer] = useState('') // State for the answer text box
+  const [answer, setAnswer] = useState('') // State for the answer
+  const [questionTopic, setQuestionTopic] = useState<QuestionTopic>('topic1') // State for question topic
 
   useEffect(() => {
     getHello()
@@ -21,10 +23,16 @@ function App() {
     setAnswer(e.target.value)
   }
 
+  const handleQuestionTopicChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedTopic = e.target.value as QuestionTopic
+    setQuestionTopic(selectedTopic)
+    setAnswer('') // Reset the answer when the topic changes
+  }
+
   const handleSubmit = () => {
     console.log('Answer submitted:', answer)
+    console.log('Question topic:', questionTopic)
     // Add logic to validate or send the answer to the backend
-    //Curentley just logs the answer to the console.
   }
 
   return (
@@ -38,6 +46,15 @@ function App() {
         )}
       </p>
       <div>
+        <label htmlFor="questionTopic">Select Question Topic: </label>
+        <select id="questionTopic" value={questionTopic} onChange={handleQuestionTopicChange}>
+          {/* Here is how you add to the dropdown */}
+          <option value="topic1">Topic1</option>
+          <option value="topic2">Topic2</option>
+          <option value="topic3">Topic3</option>
+        </select>
+      </div>
+      <div>
         <label htmlFor="answer">Enter your answer: </label>
         <input
           id="answer"
@@ -46,8 +63,8 @@ function App() {
           onChange={handleAnswerChange}
           placeholder="Type your answer here"
         />
-        <button onClick={handleSubmit}>Submit</button>
       </div>
+      <button onClick={handleSubmit}>Submit</button>
     </main>
   )
 }
