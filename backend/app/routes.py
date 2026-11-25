@@ -49,7 +49,7 @@ def check_answer():
     if not correct_answer:
         return jsonify({"error": "Invalid topic"}), 400
 
-    if answer.strip().lower() == correct_answer.lower():
+    if answer.strip().lower() == correct_answer.strip().lower():
         return jsonify({"result": "correct"})
     else:
         return jsonify({"result": "incorrect", "correct_answer": correct_answer})
