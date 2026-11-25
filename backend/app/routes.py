@@ -5,6 +5,8 @@ Add new endpoints here, or create more blueprints as the project grows.
 
 from flask import Blueprint, jsonify, request
 
+from app.questions import Questions
+
 api = Blueprint("api", __name__)
 
 # Example questions and answers for each topic
@@ -30,9 +32,10 @@ def health():
 @api.get("/question/<topic>")
 def get_question(topic):
     """Send a question based on the selected topic."""
-    if topic not in QUESTIONS:
-        return jsonify({"error": "Invalid topic"}), 400
-    return jsonify({"question": QUESTIONS[topic]["question"]})
+    question_data = Questions.get_question(topic)
+    if "error" in question_data:
+        return jsonify(question_data), 400
+    return jsonify(question_data)
 
 
 @api.post("/check-answer")

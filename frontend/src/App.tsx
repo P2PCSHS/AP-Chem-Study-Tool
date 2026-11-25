@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 
 type Status = 'loading' | 'ok' | 'error'
-type QuestionTopic = 'topic1' | 'topic2' | 'topic3'
+type QuestionTopic = 'stoichiometry' | 'balancing' | 'molarity'
 
 function App() {
   const [message, setMessage] = useState('')
   const [status, setStatus] = useState<Status>('loading')
-  const [questionTopic, setQuestionTopic] = useState<QuestionTopic>('topic1')
+  const [questionTopic, setQuestionTopic] = useState<QuestionTopic>('stoichiometry')
   const [question, setQuestion] = useState('')
   const [answer, setAnswer] = useState('')
   const [result, setResult] = useState<string | null>(null)
@@ -78,9 +78,9 @@ function App() {
       <div>
         <label htmlFor="questionTopic">Select Question Topic: </label>
         <select id="questionTopic" value={questionTopic} onChange={handleQuestionTopicChange}>
-          <option value="topic1">Topic1</option>
-          <option value="topic2">Topic2</option>
-          <option value="topic3">Topic3</option>
+          <option value="stoichiometry">Stoichiometry</option>
+          <option value="balancing">Balancing</option>
+          <option value="molarity">Molarity</option>
         </select>
       </div>
       <div>
